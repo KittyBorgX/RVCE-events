@@ -1,0 +1,92 @@
+name: rvce-events
+
+services:
+  frontend:
+    image: "${REGISTRY}/${IMAGE_NAMESPACE}/rvce-events-frontend:${IMAGE_TAG}"
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+    ports:
+      - "127.0.0.1:${FRONTEND_PORT:-3000}:3000"
+    networks:
+      - application
+
+  identity-service:
+    image: "${REGISTRY}/${IMAGE_NAMESPACE}/rvce-events-identity-service:${IMAGE_TAG}"
+    restart: unless-stopped
+    environment: &spring-service-environment
+      SPRING_PROFILES_ACTIVE: production
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/${POSTGRES_DB}"
+      SPRING_DATASOURCE_USERNAME: "${POSTGRES_USER}"
+      SPRING_DATASOURCE_PASSWORD: "${POSTGRES_PASSWORD}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - application
+
+  event-service:
+    image: "${REGISTRY}/${IMAGE_NAMESPACE}/rvce-events-event-service:${IMAGE_TAG}"
+    restart: unless-stopped
+    environment: *spring-service-environment
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - application
+
+  registration-service:
+    image: "${REGISTRY}/${IMAGE_NAMESPACE}/rvce-events-registration-service:${IMAGE_TAG}"
+    restart: unless-stopped
+    environment: *spring-service-environment
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - application
+
+  attendance-service:
+    image: "${REGISTRY}/${IMAGE_NAMESPACE}/rvce-events-attendance-service:${IMAGE_TAG}"
+    restart: unless-stopped
+    environment: *spring-service-environment
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - application
+
+  notification-service:
+    image: "${REGISTRY}/${IMAGE_NAMESPACE}/rvce-events-notification-service:${IMAGE_TAG}"
+    restart: unless-stopped
+    environment: *spring-service-environment
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - application
+
+  postgres:
+    image: "postgres:17-alpine"
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks:
+      - application
+
+networks:
+  application:
+    driver: bridge
+
+volumes:
+  postgres-data:
