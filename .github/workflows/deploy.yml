@@ -1,0 +1,56 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      service:
+        description: Service to deploy
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - frontend
+          - identity-service
+          - event-service
+          - registration-service
+          - attendance-service
+          - notification-service
+      image_tag:
+        description: Immutable container image tag to deploy
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy ${{ inputs.service }}
+    runs-on: ubuntu-latest
+    environment: production
+    concurrency:
+      group: production-deployment
+      cancel-in-progress: false
+    steps:
+      - name: Configure SSH
+        env:
+          DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          DEPLOY_SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s' "$DEPLOY_SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' "$DEPLOY_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Deploy over SSH
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH || '/opt/rvce-events' }}
+          SERVICE: ${{ inputs.service }}
+          IMAGE_TAG: ${{ inputs.image_tag }}
+        run: |
+          ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes -o StrictHostKeyChecking=yes "$DEPLOY_USER@$DEPLOY_HOST" \
+            "cd '$DEPLOY_PATH' && git fetch origin main && git checkout --detach origin/main && ./scripts/deploy/deploy-service.sh '$SERVICE' '$IMAGE_TAG'"

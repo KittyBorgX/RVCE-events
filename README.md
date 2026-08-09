@@ -21,3 +21,5 @@ docs/adr/                  Architecture decision records (empty)
 ```
 
 The high-level design is documented in [SYSTEM_DESIGN.md](SYSTEM_DESIGN.md). This repository is intentionally initialized without product pages, backend services, RPC contracts, database schemas, or migrations.
+
+Deployment preparation for a self-hosted Docker server is documented in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). It contains no production credentials.
