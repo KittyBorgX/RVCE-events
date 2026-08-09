@@ -220,7 +220,7 @@ PostgreSQL is the initial durable datastore. All services may use the same Postg
 
 ```mermaid
 flowchart TB
-    subgraph PostgreSQL[PostgreSQL instance]
+    subgraph postgres [PostgreSQL instance]
         IAMDB[(Identity schema)]
         EventDB[(Event schema)]
         RegDB[(Registration schema)]
