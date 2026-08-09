@@ -25,14 +25,14 @@ The design is deployment-neutral and does not require Kubernetes, Helm, Terrafor
 
 ```mermaid
 flowchart LR
-    User[Visitor / Attendee / Organizer / Admin]
+    User["Visitor / Attendee / Organizer / Admin"]
 
-    subgraph Frontend[Frontend boundary]
-        Web[Next.js web application\nTypeScript + React]
-        BFF[Frontend BFF\nNext.js server-side layer]
+    subgraph frontend [Frontend boundary]
+        Web["Next.js web application<br/>TypeScript + React"]
+        BFF["Frontend BFF<br/>Next.js server-side layer"]
     end
 
-    subgraph Backend[Backend services\nKotlin + Spring Boot]
+    subgraph backend ["Backend services<br/>Kotlin + Spring Boot"]
         IAM[Identity & Access Service]
         Events[Event Service]
         Registration[Registration Service]
@@ -42,7 +42,7 @@ flowchart LR
 
     DB[(PostgreSQL)]
     Bus[(Pub/Sub broker)]
-    Workers[Background workers\nand scheduled jobs]
+    Workers["Background workers<br/>and scheduled jobs"]
     Mail[Email delivery]
 
     User --> Web
