@@ -7,12 +7,24 @@ This is deployment infrastructure only. No service implementation or container i
 ## Design
 
 - Docker Compose runs the frontend/BFF, future Spring services, and PostgreSQL on one private Docker network.
+- The Compose project is explicitly named `rvce-events`; its containers, private network, and PostgreSQL volume are namespaced separately from other Docker Compose applications on the same server.
 - Only the frontend binds to the server loopback interface on port `3000` by default.
 - A separate reverse proxy (for example, Caddy or Nginx) must terminate TLS and proxy public traffic to `127.0.0.1:3000`.
 - Backend gRPC ports and PostgreSQL are not exposed to the public network.
 - PostgreSQL data is persisted in the named `postgres-data` volume.
 - Compose-only configuration lives in `deploy/server.env` on the server. It is ignored by Git and values are passed only to explicitly declared container fields.
 - Private registry credentials, if needed, live in `/etc/rvce-events/registry.env`, outside the repository and outside Compose configuration.
+- Deployment never runs `docker system prune`, never uses global container cleanup, and does not use Docker Compose's `--remove-orphans` option.
+
+## Existing applications on the same server
+
+The deployment is designed to coexist with other Docker applications:
+
+- It does not reuse their containers, networks, volumes, or Compose project name.
+- Backend services and PostgreSQL have no host port mapping, so they are inaccessible outside the private `rvce-events` Docker network.
+- The frontend reserves one loopback-only port. Set `FRONTEND_PORT` in `deploy/server.env` to an unused value, such as `3100`, if another application already uses `3000`.
+- Before the first deployment, run `ss -ltn` on the server and choose a free loopback port. A port conflict causes Docker to fail the new container start; it does not stop the application already using that port.
+- Configure the server's existing reverse proxy with a separate hostname for RVCE Events and proxy it to `127.0.0.1:<FRONTEND_PORT>`.
 
 ## One-time server setup
 

@@ -59,7 +59,7 @@ export IMAGE_TAG="$image_tag"
 
 if [[ "$service" == "all" ]]; then
   docker compose --env-file "$ENV_FILE" -f "$COMPOSE_FILE" pull
-  docker compose --env-file "$ENV_FILE" -f "$COMPOSE_FILE" up --detach --remove-orphans
+  docker compose --env-file "$ENV_FILE" -f "$COMPOSE_FILE" up --detach
 else
   docker compose --env-file "$ENV_FILE" -f "$COMPOSE_FILE" pull "$service"
   docker compose --env-file "$ENV_FILE" -f "$COMPOSE_FILE" up --detach --no-deps "$service"
