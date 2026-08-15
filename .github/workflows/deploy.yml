@@ -88,20 +88,23 @@ jobs:
           python3 -c "
           import os, base64, re
 
-          raw = os.environ.get('DEPLOY_SSH_PRIVATE_KEY', '').strip().replace('\r', '').strip('\'\"')
-          if '\\n' in raw:
-              raw = raw.replace('\\n', '\n')
-
+          raw = os.environ.get('DEPLOY_SSH_PRIVATE_KEY', '').strip()
           key_data = ''
+
+          # 1. Check if raw value is a base64 encoded key
           try:
               decoded = base64.b64decode(raw).decode('utf-8')
               if '-----BEGIN' in decoded:
-                  raw = decoded
+                  key_data = decoded
           except Exception:
               pass
 
-          if '-----BEGIN' in raw:
-              m = re.search(r'(-----BEGIN [^-]+-----)(.*?)(-----END [^-]+-----)', raw, re.DOTALL)
+          # 2. Reconstruct if flattened single-line
+          if not key_data and '-----BEGIN' in raw:
+              cleaned = raw.replace('\r', '').strip('\'\"')
+              if '\\n' in cleaned:
+                  cleaned = cleaned.replace('\\n', '\n')
+              m = re.search(r'(-----BEGIN [^-]+-----)(.*?)(-----END [^-]+-----)', cleaned, re.DOTALL)
               if m:
                   header = m.group(1)
                   body = m.group(2).replace(' ', '').replace('\n', '').strip()
