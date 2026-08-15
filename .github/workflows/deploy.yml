@@ -86,28 +86,34 @@ jobs:
         run: |
           install -d -m 700 ~/.ssh
           python3 -c "
-          import os, base64
-          raw = os.environ.get('DEPLOY_SSH_PRIVATE_KEY', '').strip()
+          import os, base64, re
+
+          raw = os.environ.get('DEPLOY_SSH_PRIVATE_KEY', '').strip().replace('\r', '').strip('\'\"')
+          if '\\n' in raw:
+              raw = raw.replace('\\n', '\n')
+
           key_data = ''
           try:
               decoded = base64.b64decode(raw).decode('utf-8')
               if '-----BEGIN' in decoded:
-                  key_data = decoded
+                  raw = decoded
           except Exception:
               pass
 
+          if '-----BEGIN' in raw:
+              m = re.search(r'(-----BEGIN [^-]+-----)(.*?)(-----END [^-]+-----)', raw, re.DOTALL)
+              if m:
+                  header = m.group(1)
+                  body = m.group(2).replace(' ', '').replace('\n', '').strip()
+                  footer = m.group(3)
+                  folded = '\n'.join([body[i:i+64] for i in range(0, len(body), 64)])
+                  key_data = f'{header}\n{folded}\n{footer}\n'
+
           if not key_data:
-              key_data = raw
-              if '-----BEGIN' in key_data and '\n' not in key_data:
-                  parts = key_data.split('-----')
-                  if len(parts) >= 4:
-                      header = '-----' + parts[1] + '-----'
-                      footer = '-----' + parts[3] + '-----'
-                      body = parts[2].strip().replace(' ', '\n')
-                      key_data = f'{header}\n{body}\n{footer}\n'
+              key_data = raw if raw.endswith('\n') else raw + '\n'
 
           with open(os.path.expanduser('~/.ssh/id_ed25519'), 'w') as f:
-              f.write(key_data if key_data.endswith('\n') else key_data + '\n')
+              f.write(key_data)
           "
           chmod 600 ~/.ssh/id_ed25519
           echo "SSH key line count: $(wc -l < ~/.ssh/id_ed25519)"
