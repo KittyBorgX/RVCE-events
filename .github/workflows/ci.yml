@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - deployment-foundation
 
 permissions:
   contents: read
