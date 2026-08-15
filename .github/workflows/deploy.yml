@@ -80,13 +80,17 @@ jobs:
     steps:
       - name: Configure SSH
         env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
           DEPLOY_SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
         run: |
           install -d -m 700 ~/.ssh
-          printf '%s' "$DEPLOY_SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          printf '%s\n' "$DEPLOY_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          if [ -n "$DEPLOY_SSH_KNOWN_HOSTS" ]; then
+            printf '%s\n' "$DEPLOY_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          fi
+          ssh-keyscan -t ed25519,ecdsa,rsa -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
           chmod 600 ~/.ssh/known_hosts
 
       - name: Deploy over SSH
