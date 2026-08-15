@@ -85,20 +85,11 @@ jobs:
           DEPLOY_SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
         run: |
           install -d -m 700 ~/.ssh
-          python3 -c "
-          import os
-          key = os.environ.get('DEPLOY_SSH_PRIVATE_KEY', '').strip()
-          if key:
-              if '-----BEGIN' in key and '\n' not in key:
-                  parts = key.split('-----')
-                  header = '-----' + parts[1] + '-----'
-                  footer = '-----' + parts[3] + '-----'
-                  body = parts[2].strip().replace(' ', '\n')
-                  key = f'{header}\n{body}\n{footer}\n'
-              with open(os.path.expanduser('~/.ssh/id_ed25519'), 'w') as f:
-                  f.write(key if key.endswith('\n') else key + '\n')
-          "
+          printf '%s\n' "$DEPLOY_SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          sed -i 's/\r$//' ~/.ssh/id_ed25519
+          [ -n "$(tail -c1 ~/.ssh/id_ed25519)" ] && echo "" >> ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
+          ssh-keygen -l -f ~/.ssh/id_ed25519
           if [ -n "$DEPLOY_SSH_KNOWN_HOSTS" ]; then
             printf '%s\n' "$DEPLOY_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
           fi
