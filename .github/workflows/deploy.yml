@@ -101,5 +101,5 @@ jobs:
           SERVICE: ${{ inputs.service || 'all' }}
           IMAGE_TAG: ${{ needs.build-and-publish.outputs.image_tag }}
         run: |
-          ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes -o StrictHostKeyChecking=accept-new "$DEPLOY_USER@$DEPLOY_HOST" \
+          ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$DEPLOY_USER@$DEPLOY_HOST" \
             "cd '$DEPLOY_PATH' && git fetch origin main && git checkout --detach origin/main && ./scripts/deploy/deploy-service.sh '$SERVICE' '$IMAGE_TAG'"
