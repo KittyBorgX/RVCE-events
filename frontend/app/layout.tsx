@@ -24,6 +24,10 @@ const aaltoFont = localFont({
 export const metadata: Metadata = {
   title: "Coding Club Events — Coming Soon",
   description: "Official Coding Club Events Platform — Season 2026. Hackathons, Workshops, Open Source Sprints & Keynotes.",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({
