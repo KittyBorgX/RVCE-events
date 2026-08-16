@@ -1,20 +1,29 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const aaltoFont = localFont({
+  src: "../public/fonts/aalto-display-personal-use.otf",
+  variable: "--font-aalto-local",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "RVCE Events",
-  description: "RVCE event discovery and management platform",
+  title: "Coding Club Events — Coming Soon",
+  description: "Official Coding Club Events Platform — Season 2026. Hackathons, Workshops, Open Source Sprints & Keynotes.",
 };
 
 export default function RootLayout({
@@ -23,11 +32,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${aaltoFont.variable}`}>
+      <body className="antialiased bg-[#4a32f9] text-[#fdcdd7] min-h-screen flex flex-col justify-between selection:bg-[#fdcdd7] selection:text-[#4a32f9]">
+        {children}
+      </body>
     </html>
   );
 }
