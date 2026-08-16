@@ -159,6 +159,16 @@ export function EventCard({ title, date, className }: EventCardProps) {
 }
 ```
 
+### Storybook Stories (MANDATORY for all UI Components)
+- Every reusable component in `src/components/ui/` or `src/components/` MUST have a co-located Storybook story file (`<ComponentName>.stories.tsx`).
+- Stories must document:
+  1. All component variants (`primary`, `outline`, `ghost`, etc.)
+  2. All size variants (`sm`, `md`, `lg`)
+  3. Interactive states (`hover`, `focus`, `isLoading`, `disabled`)
+  4. Proper contrast on the brand Cobalt (`#4a32f9`) and dark surface backgrounds.
+- Run local Storybook dev server with `npm run storybook`.
+- Test static Storybook production build with `npm run build:storybook`.
+
 ### Forms
 - Always use `react-hook-form` with `zod` schemas for validation.
 - Define Zod schemas in the same file or a co-located `schema.ts`.
@@ -172,8 +182,12 @@ export function EventCard({ title, date, className }: EventCardProps) {
 | --- | --- |
 | `npm run dev` | Local development server |
 | `npm run build` | Production build (must pass before PR merge) |
+| `npm run storybook` | Run Storybook development environment on port 6006 |
+| `npm run build:storybook` | Build static Storybook into `public/storybook` (served at `/storybook`) |
 | `npm run lint` | ESLint checks (must pass before PR merge) |
 | `npm start` | Start production server (standalone mode) |
 
 - **All PRs modifying frontend code must include desktop AND mobile screenshots.**
+- **All PRs adding or modifying UI components must include a companion Storybook story file.**
 - The Docker build uses `output: "standalone"` — the container runs a minimal Node.js server, not the full `node_modules`.
+

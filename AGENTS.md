@@ -190,6 +190,8 @@ Browser → Next.js App Router (React Server Components / Route Handlers)
 - **Icons**: `lucide-react` exclusively. Do not introduce other icon libraries.
 - **Class Merging**: Use `clsx` + `tailwind-merge` for conditional class composition.
 - **Path Alias**: `@/` maps to the `frontend/` root.
+- **Storybook Stories Mandatory**: Every UI component created under `src/components/` MUST include a companion Storybook story file (`<ComponentName>.stories.tsx`). Stories must showcase all variants, responsive behavior, and interactive states (default, hover, loading, disabled) rendered on the Cobalt (`#4a32f9`) brand canvas.
+- **Storybook Access**: Storybook is compiled to `public/storybook` and served live at `/storybook` (`https://events.codingclubrvce.com/storybook`). Test builds with `npm run build:storybook`.
 
 ### 5.3 Backend (Kotlin / Spring Boot)
 
