@@ -104,7 +104,7 @@ Create a dedicated feature branch for each issue:
 Use clear, semantic commit messages:
 - `feat(frontend): add responsive event filter bar`
 - `fix(frontend): resolve image aspect ratio distortion on mobile`
-- `docs: update API contract specifications in SYSTEM_DESIGN.md`
+- `docs: update API contract specifications in docs/SYSTEM_DESIGN.md`
 - `chore: update dependencies`
 
 ---

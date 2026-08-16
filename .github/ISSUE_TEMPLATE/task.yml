@@ -65,4 +65,4 @@ body:
     attributes:
       label: "References & Relevant Files"
       description: "Link to relevant design docs, Figma designs, or existing files."
-      placeholder: "- SYSTEM_DESIGN.md\n- frontend/app/page.tsx\n- backend/services/..."
+      placeholder: "- docs/SYSTEM_DESIGN.md\n- frontend/app/page.tsx\n- backend/services/..."
