@@ -118,6 +118,7 @@ frontend/
 4. **No Direct Protobuf**: Frontend must NEVER import raw `.proto` generated types. Use typed wrapper clients in `src/bff/clients/` that expose clean TypeScript interfaces. Data transformation happens in `src/bff/mappers/`.
 5. **Static Assets**: All images, fonts, and media go in `public/`. Use Next.js `<Image>` component for optimized image rendering.
 6. **Path Aliases**: Use `@/` for absolute imports (configured in `tsconfig.json`).
+7. **Environment Variables & Public Repo Security**: Never commit `.env` or `.env.local`. Document all required keys in `frontend/.env.example` with dummy placeholders. Client-exposed variables must be prefixed with `NEXT_PUBLIC_` and must NEVER contain secrets or private tokens.
 
 ---
 

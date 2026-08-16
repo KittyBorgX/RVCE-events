@@ -264,10 +264,31 @@ Use **Conventional Commits**:
 
 ---
 
-## 8. Security
+## 8. Security & Environment Variable Management (Public Repository)
 
-- **No credentials in code or commits.** All secrets via environment variables or GitHub Actions secrets.
-- **`.env` files are gitignored.** Only `.env.example` templates with placeholder values are committed.
+> **CRITICAL: This repository is completely PUBLIC and OPEN-SOURCE.**
+> Any secret, token, private key, or credential committed to Git is permanently compromised and visible to the world.
+
+### 8.1 Zero-Tolerance Rules for Secrets
+- **NEVER commit any secret, credential, private token, or connection string to Git.**
+- **NEVER commit `.env`, `.env.local`, `.env.production`, or `server.env` files.**
+- **Only commit template files**: `.env.example` (for frontend / local development) and `deploy/server.env.example` (for Docker/server deployments) with sanitized, placeholder values (e.g. `your-google-client-id-here`, `change_me_in_production`).
+- **Never embed credentials in code**: gRPC auth tokens, database passwords, OAuth client secrets, API keys, and JWT signing secrets must ALWAYS be loaded from environment variables at runtime.
+
+### 8.2 Environment Variable Lifecycle
+- **Local Development**:
+  - Copy `.env.example` to `.env.local` (frontend) or create local environment configs.
+  - These files are strictly ignored by `.gitignore`.
+- **CI / CD Pipelines**:
+  - Inject secrets exclusively via **GitHub Actions Repository Secrets** or GitHub Environment Secrets.
+  - Secrets are passed as environment variables during build/deploy steps and never logged or echoed in CI logs.
+- **Production & Staging Deployments**:
+  - Environment files on the server (`/opt/rvce-events/server.env` and `/opt/rvce-events-staging/server.env`) are created and managed out-of-band directly on the host with restricted permissions (`chmod 600`).
+  - Docker Compose binds these environment variables into container runtimes.
+
+### 8.3 Infrastructure & General Security
 - **SSH access**: Key-based authentication only. The `rvce-deploy` user has no sudo privileges.
 - **Container images**: Use Alpine-based images. Run as non-root users inside containers.
 - **Dependencies**: Address Dependabot alerts promptly. Pin major versions.
+- **Accidental Leak Protocol**: If any secret or private key is accidentally committed or pushed, it must be considered **immediately compromised**. Revoke, invalidate, and rotate the secret in the provider console (e.g. Google Cloud Console, DB, etc.) immediately.
+
