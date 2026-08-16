@@ -20,7 +20,7 @@ tests/
 docs/adr/                  Architecture decision records (empty)
 ```
 
-The high-level system architecture is documented in [docs/SYSTEM_DESIGN.md](docs/SYSTEM_DESIGN.md), feature requirements in [docs/FEATURES.md](docs/FEATURES.md), and design specifications in [docs/DESIGN.md](docs/DESIGN.md).
+The canonical product requirements are documented in [docs/PRD.md](docs/PRD.md), high-level system architecture in [docs/SYSTEM_DESIGN.md](docs/SYSTEM_DESIGN.md), feature requirements in [docs/FEATURES.md](docs/FEATURES.md), and design specifications in [docs/DESIGN.md](docs/DESIGN.md).
 
 Deployment preparation for a self-hosted Docker server is documented in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). It contains no production credentials.
 

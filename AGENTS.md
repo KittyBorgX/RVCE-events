@@ -101,6 +101,7 @@ RVCE-events/
 │   └── server.env.example
 │
 ├── docs/                        ← ALL documentation lives here
+│   ├── PRD.md                   ← Canonical Product Requirements Document
 │   ├── SYSTEM_DESIGN.md         ← Architecture & system design
 │   ├── FEATURES.md              ← Feature requirements & milestones
 │   ├── DESIGN.md                ← Tech stack & design decisions

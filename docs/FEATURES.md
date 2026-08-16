@@ -50,79 +50,54 @@ Organizers may represent clubs, departments, teams, or other approved RVCE group
 
 ## 3. MVP scope
 
-The first release should focus on a dependable event directory and registration workflow.
+The first release focuses on an autonomous club event publishing platform, dynamic form registration, UPI payment verification, and high-speed QR check-ins with automated AICTE points ledger.
 
 ### 3.1 Authentication and accounts
 
-- User registration and sign-in.
-- Sign-out and session management.
-- Password reset.
-- Basic profile with name, email, student/staff identifier where applicable, department, and year.
-- Role-based authorization for attendees, organizers, and administrators.
-- Account status management, including active, suspended, and deactivated states.
+- Student sign-in strictly via Google OAuth restricted to `@rvce.edu.in`.
+- First-time student profile capture for USN (`^1RV\d{2}[A-Z]{2}\d{3}$`), department, and graduation year.
+- Dedicated Club Account credentials provisioned by Super Admins with club self-service password reset.
+- Event-specific Volunteer Scanner credentials for door ushers at `/scanner`.
+- Role-based authorization: Student Attendee, Club Account, Door Scanner, Faculty Counselor, Super Admin.
 
-The exact identity provider or institutional single sign-on integration remains to be decided.
+### 3.2 Event management & direct publishing
 
-### 3.2 Event management
+- Direct publishing by authorized clubs (no admin/faculty approval bottleneck required).
+- Event details: title, description, cover image, category, venue, start/end timestamps, registration windows, and capacity limits.
+- AICTE Activity Points configuration (points value, category); enabling AICTE points automatically activates and locks attendance tracking.
+- Paid event setup: UPI QR code image upload, UPI ID, and fee amount.
+- Event volunteer scanner password configuration.
+- Event lifecycle: Draft, Published, Cancelled, Completed.
 
-Events should support:
+### 3.3 Dynamic registration forms & payments
 
-- Title and description.
-- Cover image or poster.
-- Organizer and contact information.
-- Category, tags, and target audience.
-- Venue and optional online meeting information.
-- Start and end date/time.
-- Registration open and close dates.
-- Capacity and waitlist settings.
-- Eligibility requirements.
-- Event agenda or schedule.
-- Rules, terms, and additional instructions.
+- Pre-seeded default fields: Full Name, USN, Email Address (prefilled from student profile; removable by organizers).
+- Google Forms-like custom field builder: Short Text, Long Text, Dropdown, Radio Options, Checkboxes, File Upload.
+- UPI QR code display during registration and payment screenshot upload field.
+- Organizer attendee dashboard with payment screenshot verification queue (Verify / Reject).
 
-Event lifecycle:
+### 3.4 Event discovery
 
-1. Draft
-2. Submitted for approval
-3. Approved and published
-4. Registration open or closed
-5. In progress
-6. Completed
-7. Cancelled or archived
+- Public event directory with search and filtering by AICTE points, category, date, and fee.
+- Responsive shareable event pages with dynamic OpenGraph cards.
+- 1-click Add-to-Calendar (`.ics`).
 
-Organizers can create and manage drafts. Administrators control publication and moderation.
+### 3.5 High-speed door check-in & volunteer scanner
 
-### 3.3 Event discovery
+- Mobile-optimized Volunteer Scanner portal (`/scanner`) authenticated via event-specific password.
+- High-speed in-browser camera QR code scanner (< 500ms scan latency).
+- Duplicate check-in prevention and manual USN search fallback.
+- Live real-time attendance counter for organizers.
 
-- Public event listing.
-- Event detail page with a shareable URL.
-- Search by title, description, organizer, or tag.
-- Filters for category, date, venue, and registration availability.
-- Sorting by date and relevance.
-- Separate views for upcoming, ongoing, completed, and cancelled events.
-- Featured or highlighted events managed by administrators.
+### 3.6 AICTE Activity Points automated ledger
 
-### 3.4 Registration
+- Automated point credit to student ledger immediately upon verified attendance check-in.
+- Student AICTE portfolio tracking progress toward the 100-point graduation requirement.
+- Digitally signed and QR-verifiable AICTE activity transcript (PDF) for Faculty Counselor review.
+- Faculty Counselor / Proctor portal for 1-click verification and semester clearance.
+- 1-click official AICTE compliance report export for club organizers and HODs.
 
-- Register for an eligible event.
-- Prevent duplicate registrations.
-- Enforce capacity and registration deadlines.
-- Support waitlists when an event is full.
-- Registration confirmation.
-- Registration cancellation where allowed.
-- Attendee view of registration status.
-- Organizer view of attendee lists.
-
-The initial registration form can use a standard attendee profile. Custom event-specific form fields should be added after the core workflow is stable.
-
-### 3.5 Attendance and check-in
-
-- Organizer can view the registered attendee list.
-- Organizer can mark an attendee as present or absent.
-- Attendee check-in using a registration code or QR code.
-- Manual check-in fallback.
-- Attendance summary for organizers and administrators.
-
-### 3.6 Notifications
+### 3.7 Notifications
 
 - Registration confirmation.
 - Registration cancellation or waitlist status change.

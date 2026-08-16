@@ -14,6 +14,7 @@
 
 ```text
 docs/
+├── PRD.md                 ← Canonical Product Requirements Document (PRD)
 ├── SYSTEM_DESIGN.md       ← High-level architecture & system design
 ├── FEATURES.md            ← Feature requirements, user stories, milestones
 ├── DESIGN.md              ← Tech stack decisions & design rationale
