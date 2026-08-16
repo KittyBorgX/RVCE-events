@@ -24,7 +24,7 @@ export default function HomePage() {
       <div className="max-w-4xl mx-auto px-6 py-20 flex-1 flex flex-col justify-center text-center">
         <div className="inline-flex items-center justify-center space-x-2 bg-blue-950/50 border border-blue-800/50 rounded-full px-4 py-1.5 mb-8 w-max mx-auto text-xs text-blue-300 font-mono">
           <span>Target Subdomain:</span>
-          <span className="font-semibold text-blue-200">events.rvcecodingclub.edu</span>
+          <span className="font-semibold text-blue-200">events.codingclubrvce.com</span>
         </div>
 
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
