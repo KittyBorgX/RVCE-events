@@ -1,0 +1,58 @@
+name: "🐛 Bug Report"
+description: "File a bug report to help us improve RVCE Events."
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue with RVCE Events! Please provide as much context as possible.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Describe the Bug"
+      description: "A clear and concise description of what the bug is."
+      placeholder: "When clicking X on page Y, Z happens instead of..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: "Steps to Reproduce"
+      description: "Steps to reproduce the behavior."
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: "Expected Behavior"
+      description: "A clear description of what you expected to happen."
+      placeholder: "The page should..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: "Environment"
+      description: "Where did you observe this bug?"
+      options:
+        - "Local Development (localhost)"
+        - "Staging (events.test.codingclubrvce.com)"
+        - "Production (events.codingclubrvce.com)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Screenshots / Additional Context"
+      description: "Attach screenshots, console logs, or browser network logs if available."

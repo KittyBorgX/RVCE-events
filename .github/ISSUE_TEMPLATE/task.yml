@@ -1,0 +1,68 @@
+name: "🎯 Task / Feature Assignment"
+description: "Create a task, module, or feature to be allotted to a club contributor."
+title: "[TASK]: "
+labels: ["help wanted", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 🚀 RVCE Events — Task Allotment
+        Use this template to describe a discrete task, component, or service module for contributors.
+        *If you want to work on this issue, please leave a comment requesting assignment before starting.*
+
+  - type: dropdown
+    id: domain
+    attributes:
+      label: "Component / Domain"
+      description: "Select the primary area of the codebase this task belongs to."
+      options:
+        - "Frontend (Next.js / React / Tailwind)"
+        - "Backend (Kotlin / Spring Boot)"
+        - "API Contracts (Protobuf / gRPC)"
+        - "Database / Migrations (Liquibase / PostgreSQL)"
+        - "DevOps / Infrastructure / Docker"
+        - "Documentation / Design"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: difficulty
+    attributes:
+      label: "Difficulty Level"
+      description: "Estimated difficulty for contributors."
+      options:
+        - "🟢 Beginner (Good first issue)"
+        - "🟡 Intermediate"
+        - "🔴 Advanced"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Task Description"
+      description: "Clearly describe what needs to be implemented or changed."
+      placeholder: "Provide a detailed overview of the feature or refactor..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "Acceptance Criteria"
+      description: "Checklist of items that must be completed for this task to be considered done."
+      value: |
+        - [ ] Implementation complete and tested locally
+        - [ ] Follows project code style and conventions
+        - [ ] Unit / Integration tests added (if applicable)
+        - [ ] CI lint and build checks pass
+        - [ ] PR opened referencing this issue (`Fixes #<issue_no>`)
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: "References & Relevant Files"
+      description: "Link to relevant design docs, Figma designs, or existing files."
+      placeholder: "- SYSTEM_DESIGN.md\n- frontend/app/page.tsx\n- backend/services/..."

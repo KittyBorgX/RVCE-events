@@ -1,0 +1,139 @@
+# 🤝 Contributing to RVCE Events
+
+Welcome to the **RVCE Events** platform repository! This project is maintained and developed by the **RVCE Coding Club**. We are thrilled to have club members and juniors contribute to building our college's premier event discovery, registration, and attendance platform.
+
+---
+
+## 📋 Table of Contents
+1. [Code of Conduct & Etiquette](#-code-of-conduct--etiquette)
+2. [Contribution Workflow](#-contribution-workflow)
+3. [Requesting Issue Allotment](#-requesting-issue-allotment)
+4. [Local Development Setup](#-local-development-setup)
+5. [Git & Commit Guidelines](#-git--commit-guidelines)
+6. [Submitting a Pull Request](#-submitting-a-pull-request)
+7. [CI/CD & Live Staging Previews](#-cicd--live-staging-previews)
+
+---
+
+## 📜 Code of Conduct & Etiquette
+- Be respectful, constructive, and helpful to fellow contributors.
+- **Do not start working on an issue without being assigned first** — this prevents multiple contributors from doing duplicate work.
+- If you are assigned an issue and can no longer work on it, please leave a comment so it can be unassigned and allotted to someone else.
+
+---
+
+## 🚀 Contribution Workflow
+
+```mermaid
+graph TD
+    A["1. Browse GitHub Issues"] --> B["2. Comment to request issue allotment"]
+    B --> C["3. Maintainer assigns issue to you"]
+    C --> D["4. Fork repository & create branch"]
+    D --> E["5. Develop & test locally"]
+    E --> F["6. Open Pull Request referencing Fixes #issue"]
+    F --> G["7. Code Review & CI checks pass"]
+    G --> H["8. PR merged into main"]
+    H --> I["9. Auto-deployed to Staging (events.test.codingclubrvce.com)"]
+```
+
+---
+
+## 🎯 Requesting Issue Allotment
+
+1. Go to the [Issues tab](https://github.com/overclocked-2124/RVCE-events/issues).
+2. Filter by labels like:
+   - `good first issue` — Great beginner-friendly tasks for first-time contributors.
+   - `help wanted` — Open tasks ready for someone to pick up.
+   - `frontend` or `backend` — Based on your area of interest.
+3. Check that the issue has **no Assignee** and is not labeled `assigned`.
+4. Leave a comment expressing your interest:
+   > *"Hi! I'd like to work on this issue. Could you please assign it to me?"*
+5. Once a maintainer assigns you to the issue, you're ready to start coding!
+
+---
+
+## 💻 Local Development Setup
+
+### Prerequisites
+- **Node.js** (v20 or newer)
+- **npm** (v10 or newer)
+- **Docker & Docker Compose** (optional, for running full-stack containers)
+- **Git**
+
+### 1. Fork and Clone
+```bash
+# Fork the repository on GitHub, then clone your fork:
+git clone https://github.com/<your-username>/RVCE-events.git
+cd RVCE-events
+
+# Add upstream remote to stay synced with main:
+git remote add upstream https://github.com/overclocked-2124/RVCE-events.git
+```
+
+### 2. Frontend Development (Next.js)
+```bash
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start local development server
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser to see your changes live.
+
+### 3. Verify Build & Linting Before Committing
+Always ensure your code builds and passes lint checks:
+```bash
+cd frontend
+npm run lint
+npm run build
+```
+
+---
+
+## 🌿 Git & Commit Guidelines
+
+### Branch Naming
+Create a dedicated feature branch for each issue:
+- Features: `feat/issue-<number>-short-description` (e.g. `feat/issue-14-event-card-ui`)
+- Bug fixes: `fix/issue-<number>-short-description` (e.g. `fix/issue-22-navbar-mobile-padding`)
+- Documentation: `docs/issue-<number>-short-description`
+
+### Conventional Commits
+Use clear, semantic commit messages:
+- `feat(frontend): add responsive event filter bar`
+- `fix(frontend): resolve image aspect ratio distortion on mobile`
+- `docs: update API contract specifications in SYSTEM_DESIGN.md`
+- `chore: update dependencies`
+
+---
+
+## 📬 Submitting a Pull Request
+
+1. Push your branch to your GitHub fork:
+   ```bash
+   git push origin feat/issue-14-event-card-ui
+   ```
+2. Go to [RVCE-events Pull Requests](https://github.com/overclocked-2124/RVCE-events/pulls) and click **New Pull Request**.
+3. Fill out the Pull Request template:
+   - Reference the issue number in the description (e.g. **`Fixes #14`**). This links your PR to the issue and automatically closes it when merged.
+   - Provide a clear summary and attach screenshots if you changed UI.
+4. Ensure all CI checks (linting, build tests) pass on your PR.
+5. Request a review from the maintainers. Address any code review feedback promptly.
+
+---
+
+## 🌐 CI/CD & Live Staging Previews
+
+When your pull request is reviewed and merged into the `main` branch:
+1. **GitHub Actions CI/CD** automatically triggers.
+2. The frontend container image is built and published to GitHub Container Registry.
+3. The change is **automatically deployed to the live Staging environment**:
+   👉 **[https://events.test.codingclubrvce.com](https://events.test.codingclubrvce.com)**
+4. You can immediately see and share your live contribution!
+5. Maintainers periodically promote verified staging releases to **Production** at [https://events.codingclubrvce.com](https://events.codingclubrvce.com).
+
+---
+
+Thank you for contributing to the RVCE Coding Club! 🚀

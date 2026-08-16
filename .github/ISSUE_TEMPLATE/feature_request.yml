@@ -1,0 +1,39 @@
+name: "✨ Feature Request"
+description: "Suggest a new idea, enhancement, or user experience improvement."
+title: "[FEATURE]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea or architectural suggestion for RVCE Events? We'd love to hear it!
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Problem or User Need"
+      description: "Is your feature request related to a problem or missing capability?"
+      placeholder: "As a student / club lead, I need to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: "Proposed Solution / Design"
+      description: "Describe how you envision the feature working."
+      placeholder: "We can add a new endpoint / component that..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternatives Considered"
+      description: "Describe any alternative solutions or features you've considered."
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional Context / Mockups"
+      description: "Add any mockups, wireframes, or API sketches."
