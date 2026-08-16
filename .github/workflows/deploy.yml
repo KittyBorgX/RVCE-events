@@ -9,11 +9,11 @@ on:
       service:
         description: Service to deploy
         required: true
-        default: all
+        default: frontend
         type: choice
         options:
-          - all
           - frontend
+          - all
           - identity-service
           - event-service
           - registration-service
@@ -133,7 +133,7 @@ jobs:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
           DEPLOY_PATH: ${{ vars.DEPLOY_PATH || '/opt/rvce-events' }}
-          SERVICE: ${{ inputs.service || 'all' }}
+          SERVICE: ${{ inputs.service || 'frontend' }}
           IMAGE_TAG: ${{ needs.build-and-publish.outputs.image_tag }}
         run: |
           ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$DEPLOY_USER@$DEPLOY_HOST" \
