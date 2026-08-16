@@ -4,8 +4,19 @@ on:
   push:
     branches:
       - main
+  schedule:
+    # Daily staging deployment at 00:00 UTC (05:30 IST)
+    - cron: '0 0 * * *'
   workflow_dispatch:
     inputs:
+      target_env:
+        description: Target environment
+        required: true
+        default: staging
+        type: choice
+        options:
+          - staging
+          - production
       service:
         description: Service to deploy
         required: true
@@ -73,9 +84,9 @@ jobs:
     name: Deploy Services
     needs: build-and-publish
     runs-on: ubuntu-latest
-    environment: production
+    environment: ${{ inputs.target_env || 'staging' }}
     concurrency:
-      group: production-deployment
+      group: ${{ inputs.target_env || 'staging' }}-deployment
       cancel-in-progress: false
     steps:
       - name: Configure SSH

@@ -2,7 +2,8 @@
 
 set -euo pipefail
 
-readonly DEPLOY_ROOT="${RVCE_EVENTS_DEPLOY_ROOT:-/opt/rvce-events}"
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly DEPLOY_ROOT="${RVCE_EVENTS_DEPLOY_ROOT:-$(cd "${SCRIPT_DIR}/../.." && pwd)}"
 readonly COMPOSE_FILE="${DEPLOY_ROOT}/deploy/docker-compose.yml"
 readonly ENV_FILE="${DEPLOY_ROOT}/deploy/server.env"
 readonly REGISTRY_CREDENTIALS_FILE="${RVCE_EVENTS_REGISTRY_CREDENTIALS_FILE:-/etc/rvce-events/registry.env}"

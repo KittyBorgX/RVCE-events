@@ -1,4 +1,4 @@
-name: rvce-events
+name: ${COMPOSE_PROJECT_NAME:-rvce-events}
 
 services:
   frontend:
