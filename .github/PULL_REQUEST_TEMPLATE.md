@@ -7,16 +7,23 @@
 Fixes #
 
 ## 🛠️ Type of Change
+- [ ] 🎨 Frontend / UI change
 - [ ] 🐛 Bug fix (non-breaking change that fixes an issue)
 - [ ] ✨ New feature (non-breaking change that adds functionality)
 - [ ] 🔨 Refactor / Code quality improvement
 - [ ] 📝 Documentation update
 - [ ] ⚙️ CI/CD / DevOps / Infrastructure change
 
-## 📸 Screenshots / Demos (if applicable)
-<!-- Attach screenshots or screen recordings showing UI/UX changes. -->
+## 📸 Screenshots / Demos (MANDATORY for all Frontend changes)
+<!-- ⚠️ REQUIRED: If this PR modifies or adds any UI/UX, you MUST attach before/after screenshots or screen recordings (desktop & mobile). -->
+<!-- PRs with frontend changes lacking screenshots will NOT be reviewed or merged. -->
+
+| Desktop View | Mobile View |
+| :---: | :---: |
+| <!-- Paste Desktop Screenshot Here --> | <!-- Paste Mobile Screenshot Here --> |
 
 ## 🧪 Testing Checklist
+- [ ] 📸 **Attached screenshots/screen recordings (MANDATORY for all frontend changes)**
 - [ ] I have tested these changes locally (`npm run dev` or service unit tests)
 - [ ] Code builds cleanly without errors (`npm run build`)
 - [ ] Linter passes with no warnings/errors (`npm run lint`)

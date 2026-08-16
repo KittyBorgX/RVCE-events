@@ -118,7 +118,7 @@ Use clear, semantic commit messages:
 2. Go to [RVCE-events Pull Requests](https://github.com/overclocked-2124/RVCE-events/pulls) and click **New Pull Request**.
 3. Fill out the Pull Request template:
    - Reference the issue number in the description (e.g. **`Fixes #14`**). This links your PR to the issue and automatically closes it when merged.
-   - Provide a clear summary and attach screenshots if you changed UI.
+   - **📸 Mandatory Screenshots for Frontend Changes**: Any PR that adds or modifies frontend UI/UX **MUST include screenshots or video recordings** (desktop and mobile views). Frontend PRs without visual proof will not be reviewed.
 4. Ensure all CI checks (linting, build tests) pass on your PR.
 5. Request a review from the maintainers. Address any code review feedback promptly.
 
