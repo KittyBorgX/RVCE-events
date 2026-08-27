@@ -137,6 +137,31 @@ html, body {
   color: var(--bg-cobalt);
 }
 
+/* Ambient floating motion for decorative feedback-page icons */
+@keyframes float-drift {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(4deg);
+  }
+}
+
+.animate-float {
+  animation: float-drift 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-drift 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-slow {
+    animation: none;
+  }
+}
+
 @theme inline {
   --font-heading: var(--font-inter);
   --font-sans: var(--font-inter);
